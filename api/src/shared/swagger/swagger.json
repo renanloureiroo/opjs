@@ -112,12 +112,12 @@
         }
       }
     },
-    "/orders/{id}": {
+    "/orders/{orderId}": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "orderId",
             "in": "path",
             "required": true,
             "schema": {
@@ -136,9 +136,7 @@
             "description": "Not Found"
           }
         }
-      }
-    },
-    "/orders/{orderId}": {
+      },
       "patch": {
         "description": "",
         "parameters": [
@@ -152,8 +150,31 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -170,8 +191,11 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
