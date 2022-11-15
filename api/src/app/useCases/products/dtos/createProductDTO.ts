@@ -1,15 +1,15 @@
 type IngredientType = {
-  name: string
-  icon: string
-}
+  name: string;
+  icon: string;
+};
 
 interface ICreateProductDTO {
   name: string;
   description: string;
   price: number;
-  ingredients: IngredientType[]
-  imagePath: string;
-  categoryId: string;
+  ingredients: IngredientType[];
+  image: string;
+  category: string;
 }
 
 export { ICreateProductDTO };
