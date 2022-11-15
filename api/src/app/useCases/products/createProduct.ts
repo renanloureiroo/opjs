@@ -44,13 +44,8 @@ async function createProduct(req: Request, res: Response) {
       });
     }
 
-    if (!ingredients) {
-      return res.status(400).json({
-        message: 'Ingredients are required',
-      });
-    }
+    const ingredientsFormatted = ingredients ? JSON.parse(ingredients) : [];
 
-    const ingredientsFormatted = JSON.parse(ingredients);
     const product = await Product.create({
       name,
       price,
