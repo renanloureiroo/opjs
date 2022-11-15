@@ -4,54 +4,63 @@ import { ICreateProductDTO } from './dtos/createProductDTO';
 
 async function createProduct(req: Request, res: Response) {
   try {
-    // const {
-    //   name,
-    //   price,
-    //   category,
-    //   description,
-    //   image,
-    //   ingredients,
-    // }: ICreateProductDTO = req.body;
+    const {
+      name,
+      price,
+      category,
+      description,
+      ingredients,
+    }: ICreateProductDTO = req.body;
 
-    // if (!name) {
-    //   return res.status(400).json({
-    //     message: 'Product name is required',
-    //   });
-    // }
+    const imagePath = req.file?.path;
 
-    // if (!price) {
-    //   return res.status(400).json({
-    //     message: 'Product price is required',
-    //   });
-    // }
+    if (!imagePath) {
+      return res.status(400).json({
+        message: 'Please upload a valid image',
+      });
+    }
 
-    // if (!category) {
-    //   return res.status(400).json({
-    //     message: 'Category id is required',
-    //   });
-    // }
+    if (!name) {
+      return res.status(400).json({
+        message: 'Product name is required',
+      });
+    }
 
-    // if (!description) {
-    //   return res.status(400).json({
-    //     message: 'Description is required',
-    //   });
-    // }
+    if (!price) {
+      return res.status(400).json({
+        message: 'Product price is required',
+      });
+    }
 
-    // if (!image) {
-    //   return res.status(400).json({
-    //     message: 'Image path is required',
-    //   });
-    // }
+    if (!category) {
+      return res.status(400).json({
+        message: 'Category id is required',
+      });
+    }
 
-    // if (!ingredients) {
-    //   return res.status(400).json({
-    //     message: 'Ingredients are required',
-    //   });
-    // }
+    if (!description) {
+      return res.status(400).json({
+        message: 'Description is required',
+      });
+    }
 
-    console.log(req.body);
+    if (!ingredients) {
+      return res.status(400).json({
+        message: 'Ingredients are required',
+      });
+    }
 
-    return res.status(201).send('OK');
+    const ingredientsFormatted = JSON.parse(ingredients);
+    const product = await Product.create({
+      name,
+      price,
+      category,
+      description,
+      ingredients: ingredientsFormatted,
+      imagePath,
+    });
+
+    return res.status(201).json(product);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
