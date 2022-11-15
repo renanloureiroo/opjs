@@ -6,6 +6,10 @@ const options: Options = {
     destination(req, file, callback) {
       callback(null, path.resolve(__dirname, '..', '..', '..', 'uploads'));
     },
+    filename(req, file, callback) {
+      const fileName = `${Date.now()}-${file.originalname}`;
+      callback(null, fileName);
+    },
   }),
 };
 
