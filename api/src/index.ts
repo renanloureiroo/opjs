@@ -1,8 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-
 import { router } from './router';
+import swaggerUi from 'swagger-ui-express';
+
+import swaggerFile from './shared/swagger/swagger.json';
 
 const app = express();
 
@@ -15,6 +17,7 @@ mongoose
     app.use(morgan('dev'));
 
     app.use(router);
+    app.use('/api-doc/v1', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
     app.listen(PORT, () => {
       console.log(`🎸 Server is running on http://localhost:${PORT}`);
