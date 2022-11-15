@@ -4,7 +4,7 @@ type ProductType = {
 };
 
 interface ICreateOrderDTO {
-  products: ProductType;
+  products: ProductType[];
   table: string;
 }
 export { ICreateOrderDTO };
