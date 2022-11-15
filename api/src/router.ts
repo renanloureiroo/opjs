@@ -6,6 +6,10 @@ import { listCategories } from './app/useCases/categories/listCategories';
 import { createProduct } from './app/useCases/products/createProduct';
 import { listProducts } from './app/useCases/products/listProducts';
 import { options } from './shared/configs/multer';
+import { listProductsByCategory } from './app/useCases/categories/listProductsByCategory';
+import { listOrders } from './app/useCases/orders/listOrders';
+import { createOrder } from './app/useCases/orders/createOrder';
+import { getOrderById } from './app/useCases/orders/getOrderById';
 
 const router = Router();
 
@@ -24,20 +28,17 @@ router.get('/products', listProducts);
 router.post('/products', upload.single('image'), createProduct);
 
 // Get products by category
-// TODO: create get products by categoryId
-router.get('/categories/:categoryId/products', (req, res) => {
-  return res.send('OK');
-});
+router.get('/categories/:categoryId/products', listProductsByCategory);
 
 // List orders
-router.get('/orders', (req, res) => {
-  return res.send('OK');
-});
+router.get('/orders', listOrders);
+
+router.get('/orders/:id', getOrderById);
 
 // Create order
-router.post('/orders', (req, res) => {
-  return res.send('OK');
-});
+router.post('/orders', createOrder);
+
+// Get order by id
 
 // Change order status
 router.patch('/orders/:orderId', (req, res) => {
