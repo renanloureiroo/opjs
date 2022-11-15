@@ -12,7 +12,7 @@ mongoose
     const PORT = 3001;
 
     app.use(express.json());
-    app.use(morgan('combined'));
+    app.use(morgan('dev'));
 
     app.use(router);
 
