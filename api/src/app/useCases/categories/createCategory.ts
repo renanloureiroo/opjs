@@ -1,18 +1,32 @@
 import { Request, Response } from 'express';
 import { Category } from '../../models/Category';
+import { ICreateCategoryDTO } from './dtos/createCategoryDTO';
 
-interface IRequest {
-  name: string;
-  icon: string;
-}
 
-async function createCategories(req: Request, res: Response): Promise<Response> {
+
+async function createCategory(req: Request, res: Response): Promise<Response> {
   try {
-    const { name, icon }: IRequest = req.body;
+    const { name, icon }: ICreateCategoryDTO = req.body;
+
+    if (!name) {
+      return res.status(400).json({
+        message: 'Category name is required'
+      });
+    }
+
+    if (!icon) {
+      return res.status(400).json({
+        message: 'Category icon is required'
+      });
+
+    }
+
     const category = await Category.create({
       name,
       icon
     });
+
+
     return res.status(201).json(category);
   } catch (err) {
     return res.status(400).json({
@@ -24,4 +38,4 @@ async function createCategories(req: Request, res: Response): Promise<Response> 
 }
 
 
-export { createCategories };
+export { createCategory };
