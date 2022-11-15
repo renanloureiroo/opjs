@@ -1,9 +1,15 @@
+import multer from 'multer';
 import { Router } from 'express';
+
 import { createCategory } from './app/useCases/categories/createCategory';
 import { listCategories } from './app/useCases/categories/listCategories';
+import { createProduct } from './app/useCases/products/createProduct';
 import { listProducts } from './app/useCases/products/listProducts';
+import { options } from './shared/configs/multer';
 
 const router = Router();
+
+const upload = multer(options);
 
 // List categories
 router.get('/categories', listCategories);
@@ -15,9 +21,7 @@ router.post('/categories', createCategory);
 router.get('/products', listProducts);
 
 // Create products
-router.post('/products', (req, res) => {
-  return res.send('OK');
-});
+router.post('/products', upload.single('image'), createProduct);
 
 // Get products by category
 // TODO: create get products by categoryId
@@ -44,6 +48,5 @@ router.patch('/orders/:orderId', (req, res) => {
 router.delete('/orders/:orderId', (req, res) => {
   return res.send('OK');
 });
-
 
 export { router };
